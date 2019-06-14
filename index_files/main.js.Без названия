@@ -34207,29 +34207,22 @@ var UploadRejectBannerHelpModel = /** @class */ (function () {
         this._itemModel = itemModelId;
         return this;
     };
-    UploadRejectBannerHelpModel.prototype.setLocaleId = function (localeId) {
-        this._localeId = localeId;
-        return this;
-    };
-    UploadRejectBannerHelpModel.prototype.setLocaleName = function (localeName) {
-        this._localeName = localeName;
-        return this;
-    };
     UploadRejectBannerHelpModel.prototype.setImg = function (img) {
         this._img = img;
+        return this;
+    };
+    UploadRejectBannerHelpModel.prototype.setLocale = function (value) {
+        this._locale = value;
         return this;
     };
     UploadRejectBannerHelpModel.prototype.getItemModel = function () {
         return this._itemModel;
     };
-    UploadRejectBannerHelpModel.prototype.getLocaleId = function () {
-        return this._localeId;
-    };
-    UploadRejectBannerHelpModel.prototype.getLocaleName = function () {
-        return this._localeName;
-    };
     UploadRejectBannerHelpModel.prototype.getImg = function () {
         return this._img;
+    };
+    UploadRejectBannerHelpModel.prototype.getLocale = function () {
+        return this._locale;
     };
     return UploadRejectBannerHelpModel;
 }());
@@ -48345,11 +48338,11 @@ var LocalizationItem = /** @class */ (function (_super) {
                 if ([LocalizationStateModel_1.default.BANNER_REJECT, LocalizationStateModel_1.default.BANNER].indexOf(itemModel.getState()) > -1) {
                     rejectedBanners.push(new UploadRejectBannerHelpModel_1.default()
                         .setItemModel(itemModel.getId())
-                        .setLocaleId(itemModel.getLocaleId())
-                        .setLocaleName(LocaleStore_1.default.getById(itemModel.getLocaleId()).getName()));
+                        .setLocale(LocaleStore_1.default.getById(itemModel.getLocaleId())));
                 }
             }
         });
+        rejectedBanners = this.sortRejectedBanners(locales, rejectedBanners);
         _.each(locales, function (localeModel) {
             if (!localeModel.isDefaultForLocalization() && !selectedLocales[localeModel.getId()]) {
                 return;
@@ -48442,6 +48435,18 @@ var LocalizationItem = /** @class */ (function (_super) {
                 commentInput));
         });
         return (React.createElement("tr", { className: rowClassName, "data-localization-id": localizationId }, cols));
+    };
+    LocalizationItem.prototype.sortRejectedBanners = function (locales, rejectedBanners) {
+        var sortBanners = [];
+        _.each(locales, function (locale) {
+            var filterResult = _.find(rejectedBanners, function (banner) {
+                return banner.getLocale() === locale;
+            });
+            if (filterResult !== undefined) {
+                sortBanners.push(filterResult);
+            }
+        });
+        return sortBanners;
     };
     return LocalizationItem;
 }(ReactComponent_1.default));
@@ -49304,13 +49309,13 @@ var MultiFileLocalizationBannerForm = /** @class */ (function (_super) {
         var self = this, localizationModel = this.props.localizationModel, packageUploadComponents = [], mainBannerImg = localizationModel.getDefaultItem().getBanner().getImg(), rejectedBanners = this.props.rejectedBanners, bannerImgSize = 'banner-size-' + localizationModel.getDefaultItem().getBanner().getSizeId();
         if (rejectedBanners.length != 0) {
             _.each(rejectedBanners, function (banner) {
-                var key = 'reject_upload-' + banner.getItemModel() + '-' + banner.getLocaleId(), imgUrl = self.getUrlFromUploadList(banner.getItemModel());
+                var key = 'reject_upload-' + banner.getItemModel() + '-' + banner.getLocale().getId(), imgUrl = self.getUrlFromUploadList(banner.getItemModel());
                 packageUploadComponents.push(React.createElement("div", { key: key + '-block', className: "pure-control-group" },
                     React.createElement("hr", null),
                     React.createElement("div", null,
                         React.createElement("label", { key: key + '-label', htmlFor: "file" },
                             "Language: ",
-                            React.createElement("b", { className: "language" }, banner.getLocaleName())),
+                            React.createElement("b", { className: "language" }, banner.getLocale().getName())),
                         React.createElement("input", { key: key + '-input', name: "file", type: "file", id: banner.getItemModel() + '-input', onClick: function () { return self.onChooseFileClick(banner.getItemModel()); } })),
                     React.createElement("div", { className: bannerImgSize },
                         React.createElement("label", { hidden: imgUrl == undefined }, "Result banner:"),
