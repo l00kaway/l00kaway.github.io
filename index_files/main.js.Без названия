@@ -46847,7 +46847,8 @@ var CaseBanner = /** @class */ (function (_super) {
                     "to ",
                     React.createElement("b", null, DateHelper_1.default.fromServer(caseBanner.getDateTo())));
                 var current = DateHelper_1.default.toServer(DateHelper_1.default.getCurrent());
-                if (parseInt(caseBanner.getDateTo(), 10) < current) {
+                var dateTo = new Date(caseBanner.getDateTo()).getTime();
+                if (dateTo < current) {
                     expired = true;
                 }
             }
