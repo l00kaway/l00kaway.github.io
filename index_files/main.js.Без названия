@@ -6508,6 +6508,8 @@ var EVENTS = /** @class */ (function () {
     EVENTS.CASE_STORE_LOCALE_IDS_REMOVE = 'CaseStore.localeIdsRemove';
     EVENTS.CASE_STORE_CLIENT_IDS_ADD = 'CaseStore.clientIdsAdd';
     EVENTS.CASE_STORE_CLIENT_IDS_REMOVE = 'CaseStore.clientIdsRemove';
+    EVENTS.CASE_STORE_PRODUCT_IDS_ADD = 'CaseStore.productIdsAdd';
+    EVENTS.CASE_STORE_PRODUCT_IDS_REMOVE = 'CaseStore.productIdsRemove';
     // case banner
     EVENTS.CASE_BANNER_STORE_PUBLISH = 'CaseBannerStore.publishOne';
     EVENTS.CASE_BANNER_STORE_UN_PUBLISH = 'CaseBannerStore.unPublishOne';
@@ -7019,13 +7021,13 @@ module.exports = ExecutionEnvironment;
 
 
 
-var DOMProperty = __webpack_require__(32);
+var DOMProperty = __webpack_require__(34);
 var ReactBrowserEventEmitter = __webpack_require__(52);
-var ReactCurrentOwner = __webpack_require__(23);
+var ReactCurrentOwner = __webpack_require__(24);
 var ReactDOMFeatureFlags = __webpack_require__(114);
 var ReactElement = __webpack_require__(17);
 var ReactEmptyComponentRegistry = __webpack_require__(115);
-var ReactInstanceHandles = __webpack_require__(33);
+var ReactInstanceHandles = __webpack_require__(35);
 var ReactInstanceMap = __webpack_require__(41);
 var ReactMarkupChecksum = __webpack_require__(117);
 var ReactPerf = __webpack_require__(18);
@@ -7799,7 +7801,7 @@ module.exports = ReactMount;
 
 
 
-var ReactCurrentOwner = __webpack_require__(23);
+var ReactCurrentOwner = __webpack_require__(24);
 
 var assign = __webpack_require__(10);
 var canDefineProperty = __webpack_require__(53);
@@ -8310,7 +8312,7 @@ module.exports = ReactUpdates;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var _ = __webpack_require__(4);
-var ROLE_1 = __webpack_require__(34);
+var ROLE_1 = __webpack_require__(36);
 var PRODUCT_1 = __webpack_require__(58);
 var ProductModel_1 = __webpack_require__(60);
 var UserInfo = /** @class */ (function () {
@@ -8532,6 +8534,89 @@ function refresh() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var AppDispatcher_1 = __webpack_require__(14);
+var EVENTS_1 = __webpack_require__(5);
+var CaseActions = /** @class */ (function () {
+    function CaseActions() {
+    }
+    CaseActions.setSitePartId = function (sitePartId) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_SET_SITE_PART_ID, sitePartId);
+    };
+    CaseActions.setProductId = function (productId) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_SET_PRODUCT_ID, productId);
+    };
+    CaseActions.setCaseClientId = function (clientId) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_SET_CLIENT_ID, clientId);
+    };
+    CaseActions.setCaseLocaleId = function (localeId) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_SET_LOCALE_ID, localeId);
+    };
+    CaseActions.remove = function (id) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_REMOVE, id);
+    };
+    CaseActions.refresh = function () {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_REFRESH);
+    };
+    CaseActions.checkChanges = function () {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_CHECK_CHANGES);
+    };
+    CaseActions.clear = function () {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_CLEAR);
+    };
+    CaseActions.saveRanks = function (models) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_SAVE_RANKS, models);
+    };
+    /***
+     * case banner
+     */
+    CaseActions.caseBannerPublishOne = function (caseId, id) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_BANNER_STORE_PUBLISH, { caseId: caseId, id: id });
+    };
+    CaseActions.caseBannerUnPublishOne = function (caseId, id) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_BANNER_STORE_UN_PUBLISH, { caseId: caseId, id: id });
+    };
+    CaseActions.caseBannerRemove = function (caseId, id) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_BANNER_STORE_REMOVE, { caseId: caseId, id: id });
+    };
+    CaseActions.caseBannerRemoveAll = function (caseId) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_BANNER_STORE_REMOVE_ALL, { caseId: caseId });
+    };
+    CaseActions.caseBannerSaveRanks = function (model) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_BANNER_STORE_SAVE_RANKS, model);
+    };
+    /* Additional locale ids */
+    CaseActions.localeIdsAdd = function (localeId) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_LOCALE_IDS_ADD, localeId);
+    };
+    CaseActions.localeIdsRemove = function (localeId) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_LOCALE_IDS_REMOVE, localeId);
+    };
+    /* Additional client ids */
+    CaseActions.clientIdsAdd = function (clientId) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_CLIENT_IDS_ADD, clientId);
+    };
+    CaseActions.clientIdsRemove = function (clientId) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_CLIENT_IDS_REMOVE, clientId);
+    };
+    /* Additional product ids */
+    CaseActions.productIdsAdd = function (productId) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_PRODUCT_IDS_ADD, productId);
+    };
+    CaseActions.productIdsRemove = function (productId) {
+        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_PRODUCT_IDS_REMOVE, productId);
+    };
+    return CaseActions;
+}());
+exports.default = CaseActions;
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -8564,7 +8649,7 @@ var ReactCurrentOwner = {
 module.exports = ReactCurrentOwner;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8660,82 +8745,6 @@ var EventConstants = {
 };
 
 module.exports = EventConstants;
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var AppDispatcher_1 = __webpack_require__(14);
-var EVENTS_1 = __webpack_require__(5);
-var CaseActions = /** @class */ (function () {
-    function CaseActions() {
-    }
-    CaseActions.setSitePartId = function (sitePartId) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_SET_SITE_PART_ID, sitePartId);
-    };
-    CaseActions.setProductId = function (productId) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_SET_PRODUCT_ID, productId);
-    };
-    CaseActions.setCaseClientId = function (clientId) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_SET_CLIENT_ID, clientId);
-    };
-    CaseActions.setCaseLocaleId = function (localeId) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_SET_LOCALE_ID, localeId);
-    };
-    CaseActions.remove = function (id) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_REMOVE, id);
-    };
-    CaseActions.refresh = function () {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_REFRESH);
-    };
-    CaseActions.checkChanges = function () {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_CHECK_CHANGES);
-    };
-    CaseActions.clear = function () {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_CLEAR);
-    };
-    CaseActions.saveRanks = function (models) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_SAVE_RANKS, models);
-    };
-    /***
-     * case banner
-     */
-    CaseActions.caseBannerPublishOne = function (caseId, id) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_BANNER_STORE_PUBLISH, { caseId: caseId, id: id });
-    };
-    CaseActions.caseBannerUnPublishOne = function (caseId, id) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_BANNER_STORE_UN_PUBLISH, { caseId: caseId, id: id });
-    };
-    CaseActions.caseBannerRemove = function (caseId, id) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_BANNER_STORE_REMOVE, { caseId: caseId, id: id });
-    };
-    CaseActions.caseBannerRemoveAll = function (caseId) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_BANNER_STORE_REMOVE_ALL, { caseId: caseId });
-    };
-    CaseActions.caseBannerSaveRanks = function (model) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_BANNER_STORE_SAVE_RANKS, model);
-    };
-    /* Additional locale ids */
-    CaseActions.localeIdsAdd = function (localeId) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_LOCALE_IDS_ADD, localeId);
-    };
-    CaseActions.localeIdsRemove = function (localeId) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_LOCALE_IDS_REMOVE, localeId);
-    };
-    /* Additional client ids */
-    CaseActions.clientIdsAdd = function (clientId) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_CLIENT_IDS_ADD, clientId);
-    };
-    CaseActions.clientIdsRemove = function (clientId) {
-        AppDispatcher_1.default.trigger(EVENTS_1.default.CASE_STORE_CLIENT_IDS_REMOVE, clientId);
-    };
-    return CaseActions;
-}());
-exports.default = CaseActions;
-
 
 /***/ }),
 /* 26 */
@@ -9496,6 +9505,677 @@ exports.default = BannerModel;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var _ = __webpack_require__(4);
+var $ = __webpack_require__(8);
+var Backbone = __webpack_require__(2);
+var URL_1 = __webpack_require__(6);
+var EVENTS_1 = __webpack_require__(5);
+var AppDispatcher_1 = __webpack_require__(14);
+var CaseModel_1 = __webpack_require__(85);
+var ResultModel_1 = __webpack_require__(11);
+var CaseCollection_1 = __webpack_require__(363);
+var GlobalMessageActions_1 = __webpack_require__(13);
+var ClientStore_1 = __webpack_require__(22);
+var ProductStore_1 = __webpack_require__(33);
+var PRODUCT_1 = __webpack_require__(58);
+//////////////
+/// add, edit, remove make refresh-fetch
+//////////////
+var CaseStore = /** @class */ (function (_super) {
+    __extends(CaseStore, _super);
+    function CaseStore() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    // response attributes with data define here
+    CaseStore.prototype.defaults = function () {
+        return {
+            clientId: 0,
+            localeId: 0,
+            sitePartId: 0,
+            productId: 0,
+            caseCollection: new CaseCollection_1.default() // Backbone Collection with CaseModel items
+        };
+    };
+    // reset state
+    CaseStore.prototype.initialize = function () {
+        this.set('clientId', 0);
+        this.set('localeId', 0);
+        this.set('sitePartId', 0);
+        this.set('productId', 0);
+        this.set('caseCollection', []);
+    };
+    CaseStore.prototype.sync = function (method, model, options) {
+        options || (options = {});
+        switch (method) {
+            case "read":
+                options.url = URL_1.default.CASE_ALL
+                    + '?clientId=' + model.get('clientId')
+                    + '&localeId=' + model.get('localeId')
+                    + '&sitePartId=' + model.get('sitePartId')
+                    + '&productId=' + model.get('productId');
+                break;
+            case "create":
+                options.url = URL_1.default.CASE_SAVE;
+                break;
+            //case "delete":
+            //    options.url = URL.BANNER_DELETE + '/' + options.bannerId || '';
+            //    break;
+        }
+        if (options.url) {
+            return Backbone.sync.call(model, method, model, options);
+        }
+    };
+    CaseStore.prototype.parse = function (response, options) {
+        if (_.isObject(response)) {
+            var model = {}, models = [];
+            var resultModel = new ResultModel_1.default(response);
+            if (resultModel.isValid()) {
+                _.each(resultModel.getResult(), function (row) {
+                    models.push(new CaseModel_1.default(row));
+                });
+            }
+            model['caseCollection'] = new CaseCollection_1.default(models);
+            return model;
+        }
+        else {
+            return response;
+        }
+    };
+    CaseStore.prototype.getClientId = function () {
+        return this.get('clientId');
+    };
+    CaseStore.prototype.getLocaleId = function () {
+        return this.get('localeId');
+    };
+    CaseStore.prototype.getSitePartId = function () {
+        return this.get('sitePartId');
+    };
+    CaseStore.prototype.getProductId = function () {
+        return this.get('productId');
+    };
+    CaseStore.prototype.getCases = function () {
+        return this.get('caseCollection').models;
+    };
+    CaseStore.prototype.getLocaleIds = function () {
+        var result = [];
+        for (var key in localesIds) {
+            result.push(localesIds[key]);
+        }
+        return result;
+    };
+    CaseStore.prototype.getClientIds = function () {
+        var result = [];
+        for (var key in clientIds) {
+            result.push(clientIds[key]);
+        }
+        return result;
+    };
+    CaseStore.prototype.getProductIds = function () {
+        var result = [];
+        for (var key in productIds) {
+            result.push(productIds[key]);
+        }
+        return result;
+    };
+    CaseStore.prototype.hasProductId = function (productId) {
+        return productIds[productId] != undefined;
+    };
+    CaseStore.prototype.hasClientIds = function (clientId) {
+        return clientIds[clientId] != undefined;
+    };
+    return CaseStore;
+}(Backbone.Model));
+var caseStore = new CaseStore();
+exports.default = caseStore;
+// Register to handle all updates
+AppDispatcher_1.default.on('all', function (eventName, payload) {
+    switch (eventName) {
+        case EVENTS_1.default.CASE_STORE_SET_CLIENT_ID:
+            setClientId(parseInt(payload, 10));
+            break;
+        case EVENTS_1.default.CASE_STORE_SET_LOCALE_ID:
+            setLocaleId(parseInt(payload, 10));
+            break;
+        case EVENTS_1.default.CASE_STORE_SET_SITE_PART_ID:
+            setSitePartId(parseInt(payload, 10));
+            break;
+        case EVENTS_1.default.CASE_STORE_SET_PRODUCT_ID:
+            setProductId(parseInt(payload, 10));
+            break;
+        case EVENTS_1.default.CASE_STORE_REMOVE:
+            remove(parseInt(payload, 10));
+            break;
+        case EVENTS_1.default.CASE_STORE_REFRESH:
+            refresh();
+            break;
+        case EVENTS_1.default.CASE_STORE_CHECK_CHANGES:
+            checkChanges();
+            break;
+        case EVENTS_1.default.CASE_STORE_CLEAR:
+            clear();
+            break;
+        case EVENTS_1.default.CASE_STORE_SAVE_RANKS:
+            saveRanks(payload);
+            break;
+        /**
+         * Case banner
+         */
+        case EVENTS_1.default.CASE_BANNER_STORE_PUBLISH:
+            caseBannerPublishOne(parseInt(payload.caseId, 10), parseInt(payload.id, 10));
+            break;
+        case EVENTS_1.default.CASE_BANNER_STORE_UN_PUBLISH:
+            caseBannerUnPublishOne(parseInt(payload.caseId, 10), parseInt(payload.id, 10));
+            break;
+        case EVENTS_1.default.CASE_BANNER_STORE_REMOVE:
+            caseBannerRemove(parseInt(payload.caseId, 10), parseInt(payload.id, 10));
+            break;
+        case EVENTS_1.default.CASE_BANNER_STORE_REMOVE_ALL:
+            caseBannerRemoveAll(parseInt(payload.caseId, 10));
+            break;
+        case EVENTS_1.default.CASE_BANNER_STORE_SAVE_RANKS:
+            caseBannerSaveRanks(payload);
+            break;
+        /* additional locale ids */
+        case EVENTS_1.default.CASE_STORE_LOCALE_IDS_ADD:
+            localeIdsAdd(parseInt(payload, 10));
+            break;
+        case EVENTS_1.default.CASE_STORE_LOCALE_IDS_REMOVE:
+            localeIdsRemove(parseInt(payload, 10));
+            break;
+        /* additional client ids */
+        case EVENTS_1.default.CASE_STORE_CLIENT_IDS_ADD:
+            clientIdsAdd(parseInt(payload, 10));
+            break;
+        case EVENTS_1.default.CASE_STORE_CLIENT_IDS_REMOVE:
+            clientIdsRemove(parseInt(payload, 10));
+            break;
+        /* additional product ids */
+        case EVENTS_1.default.CASE_STORE_PRODUCT_IDS_ADD:
+            productIdsAdd(parseInt(payload, 10));
+            break;
+        case EVENTS_1.default.CASE_STORE_PRODUCT_IDS_REMOVE:
+            productIdsRemove(parseInt(payload, 10));
+            break;
+        default:
+            return;
+    }
+});
+/**
+ * Additional Products where current banner case should be saved
+ */
+var productIds = {};
+function productIdsAdd(productId) {
+    productIds[productId] = productId;
+}
+function productIdsRemove(productId) {
+    delete productIds[productId];
+}
+function productIdsClear() {
+    productIds = {};
+}
+/**
+ * Additional Locales where current banner case should be saved
+ *
+ * @type {UserModel}
+ */
+var localesIds = {};
+function localeIdsAdd(localeId) {
+    localesIds[localeId] = localeId;
+}
+function localeIdsRemove(localeId) {
+    delete localesIds[localeId];
+}
+function localeIdsClear() {
+    localesIds = {};
+}
+/**
+ * Additional client ids
+ */
+var clientIds = {};
+clientIdsClear();
+function clientIdsAdd(clientId) {
+    clientIds[clientId] = clientId;
+}
+function clientIdsRemove(clientId) {
+    delete clientIds[clientId];
+}
+function clientIdsClear() {
+    clientIds = {};
+    var clientId = caseStore.getClientId();
+    var productId = caseStore.getProductId(), product;
+    if (productId > 0) {
+        product = ProductStore_1.default.getById(productId);
+    }
+    // if COM then add checkbox to BY for WEB product
+    if (clientId) {
+        var clientModelCurrent = ClientStore_1.default.getById(clientId);
+        if (clientModelCurrent.isCom()) {
+            _.each(ClientStore_1.default.getClients(), function (clientModel) {
+                if (clientModel.isBy() && product.getCode() == PRODUCT_1.default.WEB) {
+                    clientIdsAdd(clientModel.getId());
+                }
+            });
+        }
+    }
+}
+function getById(id) {
+    var collection = _.clone(caseStore.get('caseCollection'));
+    var model = collection.get(id);
+    return model;
+}
+function setSitePartId(sitePartId) {
+    caseStore.set('sitePartId', sitePartId);
+    caseStore.fetch();
+    localeIdsClear();
+    clientIdsClear();
+}
+function setProductId(productId) {
+    caseStore.set('productId', productId);
+    caseStore.fetch();
+    localeIdsClear();
+    clientIdsClear();
+    productIdsClear();
+    productIdsAdd(productId);
+}
+function setClientId(clientId) {
+    caseStore.set('clientId', clientId);
+    caseStore.fetch();
+    localeIdsClear();
+    clientIdsClear();
+}
+function setLocaleId(localeId) {
+    caseStore.set('localeId', localeId);
+    caseStore.fetch();
+    localeIdsClear();
+}
+function refresh() {
+    caseStore.fetch();
+}
+function compareCaseModels(model1, model2) {
+    var attrs = ['id', 'clientId', 'localeId', 'rank', 'description'];
+    for (var index in attrs) {
+        if (model1.get(attrs[index]) != model2.get(attrs[index])) {
+            return false;
+        }
+    }
+    var banners1 = model1.getBanners(), banners2 = model2.getBanners();
+    if (banners1.length != banners2.length) {
+        return false;
+    }
+    for (var i = 0; i < banners1.length; i++) {
+        if (!compareCaseBannerModels(banners1[i], banners2[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+function compareCaseBannerModels(model1, model2) {
+    var attrs = ['id', 'rank', 'state', 'dateFrom', 'dateTo'];
+    for (var index in attrs) {
+        if (model1.get(attrs[index]) != model2.get(attrs[index])) {
+            return false;
+        }
+    }
+    if (!compareBannerModels(model1.getBanner(), model2.getBanner())) {
+        return false;
+    }
+    return true;
+}
+function compareBannerModels(model1, model2) {
+    var attrs = ['id', 'img'];
+    for (var index in attrs) {
+        if (model1.get(attrs[index]) != model2.get(attrs[index])) {
+            return false;
+        }
+    }
+    return true;
+}
+function checkChanges() {
+    var currentCases = caseStore.getCases();
+    if (currentCases == undefined) {
+        return;
+    }
+    var options = {
+        success: function (response) {
+            var changed = false, newCases = [];
+            if (_.isObject(response)) {
+                var resultModel = new ResultModel_1.default(response);
+                if (resultModel.isValid()) {
+                    _.each(resultModel.getResult(), function (row) {
+                        newCases.push(new CaseModel_1.default(row));
+                    });
+                }
+            }
+            if (currentCases.length == newCases.length) {
+                for (var i = 0; i < currentCases.length; i++) {
+                    if (!compareCaseModels(currentCases[i], newCases[i])) {
+                        changed = true;
+                        break;
+                    }
+                }
+            }
+            else {
+                changed = true;
+            }
+            if (changed) {
+                caseStore.set('caseCollection', new CaseCollection_1.default(newCases));
+                GlobalMessageActions_1.default.warn('Cases changed by other user');
+                caseStore.trigger(EVENTS_1.default.CHANGE);
+            }
+        }
+    };
+    // read data from server and call 'success'
+    caseStore.sync('read', caseStore, options);
+}
+function clear() {
+    caseStore.initialize();
+}
+function remove(id) {
+    var collection = _.clone(caseStore.get('caseCollection'));
+    var model = collection.get(id);
+    model.destroy({
+        success: function (_model, response) {
+            var result = new ResultModel_1.default(response);
+            if (result.isValid()) {
+                collection.remove(model);
+                // need update ranks
+                //caseStore.trigger(EVENTS.CHANGE);
+                refresh();
+                GlobalMessageActions_1.default.success('Case removed');
+            }
+            else {
+                result.showErrors();
+            }
+        }
+    });
+}
+function saveRanks(models) {
+    var ranks = [];
+    _.each(models, function (model) {
+        ranks.push(model.getId());
+    });
+    $.ajax({
+        url: URL_1.default.CASE_SAVE_RANKS,
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+            ranks: ranks,
+            clientId: caseStore.getClientId(),
+            clientIds: caseStore.getClientIds(),
+            sitePartId: caseStore.getSitePartId(),
+            productId: caseStore.getProductId(),
+            localeId: caseStore.getLocaleId(),
+            selectedLocalesId: caseStore.getLocaleIds(),
+            productIds: caseStore.getProductIds()
+        }),
+        success: function (data) {
+            var result = new ResultModel_1.default(data);
+            if (result.isValid()) {
+                caseStore.set('caseCollection', new CaseCollection_1.default(models));
+                //caseStore.trigger(EVENTS.CHANGE);
+                //need change ranks in all models
+                refresh();
+                GlobalMessageActions_1.default.success('Case sorting saved');
+            }
+            else {
+                result.showErrors();
+            }
+        }
+    });
+}
+/**
+ * Case banner
+ */
+function getCaseBanner(caseId, id) {
+    var caseModel = getById(caseId), caseBanner;
+    if (caseModel != undefined) {
+        caseBanner = caseModel.getBanner(id);
+    }
+    return caseBanner;
+}
+function caseBannerPublishOne(caseId, id) {
+    var caseBannerModel = getCaseBanner(caseId, id);
+    if (!caseBannerModel)
+        return;
+    $.ajax({
+        url: URL_1.default.CASE_BANNER_PUBLISH_ONE,
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+            id: id,
+            clientIds: caseStore.getClientIds(),
+            localeIds: caseStore.getLocaleIds(),
+            productIds: caseStore.getProductIds()
+        }),
+        success: function (data) {
+            var result = new ResultModel_1.default(data);
+            if (result.isValid()) {
+                refresh();
+                GlobalMessageActions_1.default.success('Banner published');
+            }
+            else {
+                result.showErrors();
+            }
+        }
+    });
+}
+function caseBannerUnPublishOne(caseId, id) {
+    var caseBannerModel = getCaseBanner(caseId, id);
+    if (!caseBannerModel)
+        return;
+    $.ajax({
+        url: URL_1.default.CASE_BANNER_UNPUBLISH_ONE,
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+            id: id,
+            clientIds: caseStore.getClientIds(),
+            localeIds: caseStore.getLocaleIds(),
+            productIds: caseStore.getProductIds()
+        }),
+        success: function (data) {
+            var result = new ResultModel_1.default(data);
+            if (result.isValid()) {
+                refresh();
+                GlobalMessageActions_1.default.success('Banner unpublished');
+            }
+            else {
+                result.showErrors();
+            }
+        }
+    });
+}
+function caseBannerRemove(caseId, id) {
+    var caseModel = getById(caseId);
+    if (!caseModel)
+        return;
+    var caseBannerModel = caseModel.getBanner(id);
+    if (!caseBannerModel)
+        return;
+    $.ajax({
+        url: URL_1.default.CASE_BANNER_REMOVE,
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+            id: id,
+            clientIds: caseStore.getClientIds(),
+            localeIds: caseStore.getLocaleIds(),
+            productIds: caseStore.getProductIds()
+        }),
+        success: function (data) {
+            var result = new ResultModel_1.default(data);
+            if (result.isValid()) {
+                caseModel.removeBanner(caseBannerModel);
+                refresh();
+                GlobalMessageActions_1.default.success('Banner removed');
+            }
+            else {
+                result.showErrors();
+            }
+        }
+    });
+}
+function caseBannerRemoveAll(caseId) {
+    var caseModel = getById(caseId);
+    if (!caseModel)
+        return;
+    $.ajax({
+        url: URL_1.default.CASE_BANNER_REMOVE_ALL,
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+            id: caseId,
+            clientIds: caseStore.getClientIds(),
+            localeIds: caseStore.getLocaleIds(),
+            productIds: caseStore.getProductIds()
+        }),
+        success: function (data) {
+            var result = new ResultModel_1.default(data);
+            if (result.isValid()) {
+                caseModel.setBanners([]);
+                refresh();
+                GlobalMessageActions_1.default.success('Banners removed');
+            }
+            else {
+                result.showErrors();
+            }
+        }
+    });
+}
+function caseBannerSaveRanks(caseModel) {
+    var ranks = [];
+    _.each(caseModel.getBanners(), function (model) {
+        ranks.push(model.getId());
+    });
+    $.ajax({
+        url: URL_1.default.CASE_BANNER_SAVE_RANKS,
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+            ranks: ranks,
+            clientId: caseStore.getClientId(),
+            clientIds: caseStore.getClientIds(),
+            sitePartId: caseStore.getSitePartId(),
+            productId: caseStore.getProductId(),
+            localeId: caseStore.getLocaleId(),
+            selectedLocalesId: caseStore.getLocaleIds(),
+            productIds: caseStore.getProductIds()
+        }),
+        success: function (data) {
+            var result = new ResultModel_1.default(data);
+            if (result.isValid()) {
+                refresh();
+                GlobalMessageActions_1.default.success('Banners sorting saved');
+            }
+            else {
+                result.showErrors();
+            }
+        }
+    });
+}
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Backbone = __webpack_require__(2);
+var _ = __webpack_require__(4);
+var URL_1 = __webpack_require__(6);
+var ResultModel_1 = __webpack_require__(11);
+var ProductModel_1 = __webpack_require__(60);
+var ProductCollection_1 = __webpack_require__(365);
+var ProductStore = /** @class */ (function (_super) {
+    __extends(ProductStore, _super);
+    function ProductStore() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ProductStore.prototype.defaults = function () {
+        return {
+            collection: new ProductCollection_1.default()
+        };
+    };
+    ProductStore.prototype.sync = function (method, model, options) {
+        options || (options = {});
+        switch (method) {
+            case "read":
+                options.url = URL_1.default.PRODUCT_ALL;
+                break;
+        }
+        if (options.url) {
+            return Backbone.sync.call(model, method, model, options);
+        }
+    };
+    ProductStore.prototype.parse = function (response, options) {
+        if (_.isObject(response)) {
+            var model = {}, models = [];
+            var resultModel = new ResultModel_1.default(response);
+            if (resultModel.isValid()) {
+                _.each(resultModel.getResult(), function (row) {
+                    models.push(new ProductModel_1.default(row));
+                });
+            }
+            model['collection'] = new ProductCollection_1.default(models);
+            return model;
+        }
+        else {
+            return response;
+        }
+    };
+    ProductStore.prototype.getProducts = function () {
+        return this.get('collection').models;
+    };
+    ProductStore.prototype.getById = function (id) {
+        return this.get('collection').get(id);
+    };
+    return ProductStore;
+}(Backbone.Model));
+var store = new ProductStore();
+exports.default = store;
+
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -9728,7 +10408,7 @@ var DOMProperty = {
 module.exports = DOMProperty;
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10036,7 +10716,7 @@ var ReactInstanceHandles = {
 module.exports = ReactInstanceHandles;
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10060,639 +10740,6 @@ var ROLE = /** @class */ (function () {
     return ROLE;
 }());
 exports.default = ROLE;
-
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var _ = __webpack_require__(4);
-var $ = __webpack_require__(8);
-var Backbone = __webpack_require__(2);
-var URL_1 = __webpack_require__(6);
-var EVENTS_1 = __webpack_require__(5);
-var AppDispatcher_1 = __webpack_require__(14);
-var CaseModel_1 = __webpack_require__(85);
-var ResultModel_1 = __webpack_require__(11);
-var CaseCollection_1 = __webpack_require__(363);
-var GlobalMessageActions_1 = __webpack_require__(13);
-var ClientStore_1 = __webpack_require__(22);
-var ProductStore_1 = __webpack_require__(36);
-var PRODUCT_1 = __webpack_require__(58);
-//////////////
-/// add, edit, remove make refresh-fetch
-//////////////
-var CaseStore = /** @class */ (function (_super) {
-    __extends(CaseStore, _super);
-    function CaseStore() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    // response attributes with data define here
-    CaseStore.prototype.defaults = function () {
-        return {
-            clientId: 0,
-            localeId: 0,
-            sitePartId: 0,
-            productId: 0,
-            caseCollection: new CaseCollection_1.default() // Backbone Collection with CaseModel items
-        };
-    };
-    // reset state
-    CaseStore.prototype.initialize = function () {
-        this.set('clientId', 0);
-        this.set('localeId', 0);
-        this.set('sitePartId', 0);
-        this.set('productId', 0);
-        this.set('caseCollection', []);
-    };
-    CaseStore.prototype.sync = function (method, model, options) {
-        options || (options = {});
-        switch (method) {
-            case "read":
-                options.url = URL_1.default.CASE_ALL
-                    + '?clientId=' + model.get('clientId')
-                    + '&localeId=' + model.get('localeId')
-                    + '&sitePartId=' + model.get('sitePartId')
-                    + '&productId=' + model.get('productId');
-                break;
-            case "create":
-                options.url = URL_1.default.CASE_SAVE;
-                break;
-            //case "delete":
-            //    options.url = URL.BANNER_DELETE + '/' + options.bannerId || '';
-            //    break;
-        }
-        if (options.url) {
-            return Backbone.sync.call(model, method, model, options);
-        }
-    };
-    CaseStore.prototype.parse = function (response, options) {
-        if (_.isObject(response)) {
-            var model = {}, models = [];
-            var resultModel = new ResultModel_1.default(response);
-            if (resultModel.isValid()) {
-                _.each(resultModel.getResult(), function (row) {
-                    models.push(new CaseModel_1.default(row));
-                });
-            }
-            model['caseCollection'] = new CaseCollection_1.default(models);
-            return model;
-        }
-        else {
-            return response;
-        }
-    };
-    CaseStore.prototype.getClientId = function () {
-        return this.get('clientId');
-    };
-    CaseStore.prototype.getLocaleId = function () {
-        return this.get('localeId');
-    };
-    CaseStore.prototype.getSitePartId = function () {
-        return this.get('sitePartId');
-    };
-    CaseStore.prototype.getProductId = function () {
-        return this.get('productId');
-    };
-    CaseStore.prototype.getCases = function () {
-        return this.get('caseCollection').models;
-    };
-    CaseStore.prototype.getLocaleIds = function () {
-        var result = [];
-        for (var key in localesIds) {
-            result.push(localesIds[key]);
-        }
-        return result;
-    };
-    CaseStore.prototype.getClientIds = function () {
-        var result = [];
-        for (var key in clientIds) {
-            result.push(clientIds[key]);
-        }
-        return result;
-    };
-    CaseStore.prototype.hasClientIds = function (clientId) {
-        return clientIds[clientId] != undefined;
-    };
-    return CaseStore;
-}(Backbone.Model));
-var caseStore = new CaseStore();
-exports.default = caseStore;
-// Register to handle all updates
-AppDispatcher_1.default.on('all', function (eventName, payload) {
-    switch (eventName) {
-        case EVENTS_1.default.CASE_STORE_SET_CLIENT_ID:
-            setClientId(parseInt(payload, 10));
-            break;
-        case EVENTS_1.default.CASE_STORE_SET_LOCALE_ID:
-            setLocaleId(parseInt(payload, 10));
-            break;
-        case EVENTS_1.default.CASE_STORE_SET_SITE_PART_ID:
-            setSitePartId(parseInt(payload, 10));
-            break;
-        case EVENTS_1.default.CASE_STORE_SET_PRODUCT_ID:
-            setProductId(parseInt(payload, 10));
-            break;
-        case EVENTS_1.default.CASE_STORE_REMOVE:
-            remove(parseInt(payload, 10));
-            break;
-        case EVENTS_1.default.CASE_STORE_REFRESH:
-            refresh();
-            break;
-        case EVENTS_1.default.CASE_STORE_CHECK_CHANGES:
-            checkChanges();
-            break;
-        case EVENTS_1.default.CASE_STORE_CLEAR:
-            clear();
-            break;
-        case EVENTS_1.default.CASE_STORE_SAVE_RANKS:
-            saveRanks(payload);
-            break;
-        /**
-         * Case banner
-         */
-        case EVENTS_1.default.CASE_BANNER_STORE_PUBLISH:
-            caseBannerPublishOne(parseInt(payload.caseId, 10), parseInt(payload.id, 10));
-            break;
-        case EVENTS_1.default.CASE_BANNER_STORE_UN_PUBLISH:
-            caseBannerUnPublishOne(parseInt(payload.caseId, 10), parseInt(payload.id, 10));
-            break;
-        case EVENTS_1.default.CASE_BANNER_STORE_REMOVE:
-            caseBannerRemove(parseInt(payload.caseId, 10), parseInt(payload.id, 10));
-            break;
-        case EVENTS_1.default.CASE_BANNER_STORE_REMOVE_ALL:
-            caseBannerRemoveAll(parseInt(payload.caseId, 10));
-            break;
-        case EVENTS_1.default.CASE_BANNER_STORE_SAVE_RANKS:
-            caseBannerSaveRanks(payload);
-            break;
-        /* additional client ids */
-        case EVENTS_1.default.CASE_STORE_LOCALE_IDS_ADD:
-            localeIdsAdd(parseInt(payload, 10));
-            break;
-        case EVENTS_1.default.CASE_STORE_LOCALE_IDS_REMOVE:
-            localeIdsRemove(parseInt(payload, 10));
-            break;
-        /* additional client ids */
-        case EVENTS_1.default.CASE_STORE_CLIENT_IDS_ADD:
-            clientIdsAdd(parseInt(payload, 10));
-            break;
-        case EVENTS_1.default.CASE_STORE_CLIENT_IDS_REMOVE:
-            clientIdsRemove(parseInt(payload, 10));
-            break;
-        default:
-            return;
-    }
-});
-/**
- * Additional Locales where current banner case should be saved
- *
- * @type {UserModel}
- */
-var localesIds = {};
-function localeIdsAdd(localeId) {
-    localesIds[localeId] = localeId;
-}
-function localeIdsRemove(localeId) {
-    delete localesIds[localeId];
-}
-function localeIdsClear() {
-    localesIds = {};
-}
-/**
- * Additional client ids
- */
-var clientIds = {};
-clientIdsClear();
-function clientIdsAdd(clientId) {
-    clientIds[clientId] = clientId;
-}
-function clientIdsRemove(clientId) {
-    delete clientIds[clientId];
-}
-function clientIdsClear() {
-    clientIds = {};
-    var clientId = caseStore.getClientId();
-    var productId = caseStore.getProductId(), product;
-    if (productId > 0) {
-        product = ProductStore_1.default.getById(productId);
-    }
-    // if COM then add checkbox to BY for WEB product
-    if (clientId) {
-        var clientModelCurrent = ClientStore_1.default.getById(clientId);
-        if (clientModelCurrent.isCom()) {
-            _.each(ClientStore_1.default.getClients(), function (clientModel) {
-                if (clientModel.isBy() && product.getCode() == PRODUCT_1.default.WEB) {
-                    clientIdsAdd(clientModel.getId());
-                }
-            });
-        }
-    }
-}
-function getById(id) {
-    var collection = _.clone(caseStore.get('caseCollection'));
-    var model = collection.get(id);
-    return model;
-}
-function setSitePartId(sitePartId) {
-    caseStore.set('sitePartId', sitePartId);
-    caseStore.fetch();
-    localeIdsClear();
-    clientIdsClear();
-}
-function setProductId(productId) {
-    caseStore.set('productId', productId);
-    caseStore.fetch();
-    localeIdsClear();
-    clientIdsClear();
-}
-function setClientId(clientId) {
-    caseStore.set('clientId', clientId);
-    caseStore.fetch();
-    localeIdsClear();
-    clientIdsClear();
-}
-function setLocaleId(localeId) {
-    caseStore.set('localeId', localeId);
-    caseStore.fetch();
-    localeIdsClear();
-}
-function refresh() {
-    caseStore.fetch();
-}
-function compareCaseModels(model1, model2) {
-    var attrs = ['id', 'clientId', 'localeId', 'rank', 'description'];
-    for (var index in attrs) {
-        if (model1.get(attrs[index]) != model2.get(attrs[index])) {
-            return false;
-        }
-    }
-    var banners1 = model1.getBanners(), banners2 = model2.getBanners();
-    if (banners1.length != banners2.length) {
-        return false;
-    }
-    for (var i = 0; i < banners1.length; i++) {
-        if (!compareCaseBannerModels(banners1[i], banners2[i])) {
-            return false;
-        }
-    }
-    return true;
-}
-function compareCaseBannerModels(model1, model2) {
-    var attrs = ['id', 'rank', 'state', 'dateFrom', 'dateTo'];
-    for (var index in attrs) {
-        if (model1.get(attrs[index]) != model2.get(attrs[index])) {
-            return false;
-        }
-    }
-    if (!compareBannerModels(model1.getBanner(), model2.getBanner())) {
-        return false;
-    }
-    return true;
-}
-function compareBannerModels(model1, model2) {
-    var attrs = ['id', 'img'];
-    for (var index in attrs) {
-        if (model1.get(attrs[index]) != model2.get(attrs[index])) {
-            return false;
-        }
-    }
-    return true;
-}
-function checkChanges() {
-    var currentCases = caseStore.getCases();
-    if (currentCases == undefined) {
-        return;
-    }
-    var options = {
-        success: function (response) {
-            var changed = false, newCases = [];
-            if (_.isObject(response)) {
-                var resultModel = new ResultModel_1.default(response);
-                if (resultModel.isValid()) {
-                    _.each(resultModel.getResult(), function (row) {
-                        newCases.push(new CaseModel_1.default(row));
-                    });
-                }
-            }
-            if (currentCases.length == newCases.length) {
-                for (var i = 0; i < currentCases.length; i++) {
-                    if (!compareCaseModels(currentCases[i], newCases[i])) {
-                        changed = true;
-                        break;
-                    }
-                }
-            }
-            else {
-                changed = true;
-            }
-            if (changed) {
-                caseStore.set('caseCollection', new CaseCollection_1.default(newCases));
-                GlobalMessageActions_1.default.warn('Cases changed by other user');
-                caseStore.trigger(EVENTS_1.default.CHANGE);
-            }
-        }
-    };
-    // read data from server and call 'success'
-    caseStore.sync('read', caseStore, options);
-}
-function clear() {
-    caseStore.initialize();
-}
-function remove(id) {
-    var collection = _.clone(caseStore.get('caseCollection'));
-    var model = collection.get(id);
-    model.destroy({
-        success: function (_model, response) {
-            var result = new ResultModel_1.default(response);
-            if (result.isValid()) {
-                collection.remove(model);
-                // need update ranks
-                //caseStore.trigger(EVENTS.CHANGE);
-                refresh();
-                GlobalMessageActions_1.default.success('Case removed');
-            }
-            else {
-                result.showErrors();
-            }
-        }
-    });
-}
-function saveRanks(models) {
-    var ranks = [];
-    _.each(models, function (model) {
-        ranks.push(model.getId());
-    });
-    $.ajax({
-        url: URL_1.default.CASE_SAVE_RANKS,
-        type: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        data: JSON.stringify({
-            ranks: ranks,
-            clientId: caseStore.getClientId(),
-            clientIds: caseStore.getClientIds(),
-            sitePartId: caseStore.getSitePartId(),
-            productId: caseStore.getProductId(),
-            localeId: caseStore.getLocaleId(),
-            selectedLocalesId: caseStore.getLocaleIds()
-        }),
-        success: function (data) {
-            var result = new ResultModel_1.default(data);
-            if (result.isValid()) {
-                caseStore.set('caseCollection', new CaseCollection_1.default(models));
-                //caseStore.trigger(EVENTS.CHANGE);
-                //need change ranks in all models
-                refresh();
-                GlobalMessageActions_1.default.success('Case sorting saved');
-            }
-            else {
-                result.showErrors();
-            }
-        }
-    });
-}
-/**
- * Case banner
- */
-function getCaseBanner(caseId, id) {
-    var caseModel = getById(caseId), caseBanner;
-    if (caseModel != undefined) {
-        caseBanner = caseModel.getBanner(id);
-    }
-    return caseBanner;
-}
-function caseBannerPublishOne(caseId, id) {
-    var caseBannerModel = getCaseBanner(caseId, id);
-    if (!caseBannerModel)
-        return;
-    $.ajax({
-        url: URL_1.default.CASE_BANNER_PUBLISH_ONE,
-        type: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        data: JSON.stringify({
-            id: id,
-            clientIds: caseStore.getClientIds(),
-            localeIds: caseStore.getLocaleIds()
-        }),
-        success: function (data) {
-            var result = new ResultModel_1.default(data);
-            if (result.isValid()) {
-                refresh();
-                GlobalMessageActions_1.default.success('Banner published');
-            }
-            else {
-                result.showErrors();
-            }
-        }
-    });
-}
-function caseBannerUnPublishOne(caseId, id) {
-    var caseBannerModel = getCaseBanner(caseId, id);
-    if (!caseBannerModel)
-        return;
-    $.ajax({
-        url: URL_1.default.CASE_BANNER_UNPUBLISH_ONE,
-        type: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        data: JSON.stringify({
-            id: id,
-            clientIds: caseStore.getClientIds(),
-            localeIds: caseStore.getLocaleIds()
-        }),
-        success: function (data) {
-            var result = new ResultModel_1.default(data);
-            if (result.isValid()) {
-                refresh();
-                GlobalMessageActions_1.default.success('Banner unpublished');
-            }
-            else {
-                result.showErrors();
-            }
-        }
-    });
-}
-function caseBannerRemove(caseId, id) {
-    var caseModel = getById(caseId);
-    if (!caseModel)
-        return;
-    var caseBannerModel = caseModel.getBanner(id);
-    if (!caseBannerModel)
-        return;
-    $.ajax({
-        url: URL_1.default.CASE_BANNER_REMOVE,
-        type: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        data: JSON.stringify({
-            id: id,
-            clientIds: caseStore.getClientIds(),
-            localeIds: caseStore.getLocaleIds()
-        }),
-        success: function (data) {
-            var result = new ResultModel_1.default(data);
-            if (result.isValid()) {
-                caseModel.removeBanner(caseBannerModel);
-                refresh();
-                GlobalMessageActions_1.default.success('Banner removed');
-            }
-            else {
-                result.showErrors();
-            }
-        }
-    });
-}
-function caseBannerRemoveAll(caseId) {
-    var caseModel = getById(caseId);
-    if (!caseModel)
-        return;
-    $.ajax({
-        url: URL_1.default.CASE_BANNER_REMOVE_ALL,
-        type: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        data: JSON.stringify({
-            id: caseId,
-            clientIds: caseStore.getClientIds(),
-            localeIds: caseStore.getLocaleIds()
-        }),
-        success: function (data) {
-            var result = new ResultModel_1.default(data);
-            if (result.isValid()) {
-                caseModel.setBanners([]);
-                refresh();
-                GlobalMessageActions_1.default.success('Banners removed');
-            }
-            else {
-                result.showErrors();
-            }
-        }
-    });
-}
-function caseBannerSaveRanks(caseModel) {
-    var ranks = [];
-    _.each(caseModel.getBanners(), function (model) {
-        ranks.push(model.getId());
-    });
-    $.ajax({
-        url: URL_1.default.CASE_BANNER_SAVE_RANKS,
-        type: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        data: JSON.stringify({
-            ranks: ranks,
-            clientId: caseStore.getClientId(),
-            clientIds: caseStore.getClientIds(),
-            sitePartId: caseStore.getSitePartId(),
-            productId: caseStore.getProductId(),
-            localeId: caseStore.getLocaleId(),
-            selectedLocalesId: caseStore.getLocaleIds()
-        }),
-        success: function (data) {
-            var result = new ResultModel_1.default(data);
-            if (result.isValid()) {
-                refresh();
-                GlobalMessageActions_1.default.success('Banners sorting saved');
-            }
-            else {
-                result.showErrors();
-            }
-        }
-    });
-}
-
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var Backbone = __webpack_require__(2);
-var _ = __webpack_require__(4);
-var URL_1 = __webpack_require__(6);
-var ResultModel_1 = __webpack_require__(11);
-var ProductModel_1 = __webpack_require__(60);
-var ProductCollection_1 = __webpack_require__(365);
-var ProductStore = /** @class */ (function (_super) {
-    __extends(ProductStore, _super);
-    function ProductStore() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ProductStore.prototype.defaults = function () {
-        return {
-            collection: new ProductCollection_1.default()
-        };
-    };
-    ProductStore.prototype.sync = function (method, model, options) {
-        options || (options = {});
-        switch (method) {
-            case "read":
-                options.url = URL_1.default.PRODUCT_ALL;
-                break;
-        }
-        if (options.url) {
-            return Backbone.sync.call(model, method, model, options);
-        }
-    };
-    ProductStore.prototype.parse = function (response, options) {
-        if (_.isObject(response)) {
-            var model = {}, models = [];
-            var resultModel = new ResultModel_1.default(response);
-            if (resultModel.isValid()) {
-                _.each(resultModel.getResult(), function (row) {
-                    models.push(new ProductModel_1.default(row));
-                });
-            }
-            model['collection'] = new ProductCollection_1.default(models);
-            return model;
-        }
-        else {
-            return response;
-        }
-    };
-    ProductStore.prototype.getProducts = function () {
-        return this.get('collection').models;
-    };
-    ProductStore.prototype.getById = function (id) {
-        return this.get('collection').get(id);
-    };
-    return ProductStore;
-}(Backbone.Model));
-var store = new ProductStore();
-exports.default = store;
 
 
 /***/ }),
@@ -11584,7 +11631,7 @@ module.exports = emptyObject;
 
 
 
-var EventConstants = __webpack_require__(24);
+var EventConstants = __webpack_require__(25);
 var EventPluginHub = __webpack_require__(40);
 
 var warning = __webpack_require__(9);
@@ -12265,7 +12312,7 @@ module.exports = escapeTextContentForBrowser;
 
 
 
-var EventConstants = __webpack_require__(24);
+var EventConstants = __webpack_require__(25);
 var EventPluginHub = __webpack_require__(40);
 var EventPluginRegistry = __webpack_require__(109);
 var ReactEventEmitterMixin = __webpack_require__(297);
@@ -13539,7 +13586,7 @@ module.exports = setTextContent;
 
 
 
-var DOMProperty = __webpack_require__(32);
+var DOMProperty = __webpack_require__(34);
 var ReactPerf = __webpack_require__(18);
 
 var quoteAttributeValueForBrowser = __webpack_require__(295);
@@ -13952,7 +13999,7 @@ module.exports = isEventSupported;
 
 
 
-var ReactCurrentOwner = __webpack_require__(23);
+var ReactCurrentOwner = __webpack_require__(24);
 var ReactElement = __webpack_require__(17);
 var ReactInstanceMap = __webpack_require__(41);
 var ReactUpdates = __webpack_require__(19);
@@ -14630,7 +14677,7 @@ module.exports = getEventModifierState;
 
 
 
-var ReactCurrentOwner = __webpack_require__(23);
+var ReactCurrentOwner = __webpack_require__(24);
 var ReactInstanceMap = __webpack_require__(41);
 var ReactMount = __webpack_require__(16);
 
@@ -14864,9 +14911,9 @@ module.exports = getIteratorFn;
 
 
 
-var ReactCurrentOwner = __webpack_require__(23);
+var ReactCurrentOwner = __webpack_require__(24);
 var ReactElement = __webpack_require__(17);
-var ReactInstanceHandles = __webpack_require__(33);
+var ReactInstanceHandles = __webpack_require__(35);
 
 var getIteratorFn = __webpack_require__(81);
 var invariant = __webpack_require__(7);
@@ -15832,7 +15879,7 @@ var React = __webpack_require__(1);
 var _ = __webpack_require__(4);
 var ReactComponent_1 = __webpack_require__(3);
 var PRODUCT_1 = __webpack_require__(58);
-var ProductStore_1 = __webpack_require__(36);
+var ProductStore_1 = __webpack_require__(33);
 var ProductSelect = /** @class */ (function (_super) {
     __extends(ProductSelect, _super);
     function ProductSelect() {
@@ -16577,10 +16624,10 @@ exports.default = LocalizationStateModel;
 
 
 
-var ReactCurrentOwner = __webpack_require__(23);
+var ReactCurrentOwner = __webpack_require__(24);
 var ReactDOMTextComponent = __webpack_require__(105);
 var ReactDefaultInjection = __webpack_require__(121);
-var ReactInstanceHandles = __webpack_require__(33);
+var ReactInstanceHandles = __webpack_require__(35);
 var ReactMount = __webpack_require__(16);
 var ReactPerf = __webpack_require__(18);
 var ReactReconciler = __webpack_require__(28);
@@ -17865,7 +17912,7 @@ var ReactDOMComponent = __webpack_require__(314);
 var ReactDOMTextComponent = __webpack_require__(105);
 var ReactEventListener = __webpack_require__(330);
 var ReactInjection = __webpack_require__(332);
-var ReactInstanceHandles = __webpack_require__(33);
+var ReactInstanceHandles = __webpack_require__(35);
 var ReactMount = __webpack_require__(16);
 var ReactReconcileTransaction = __webpack_require__(333);
 var SelectEventPlugin = __webpack_require__(336);
@@ -20285,7 +20332,7 @@ module.exports = getActiveElement;
 var ReactElement = __webpack_require__(17);
 var ReactPropTypeLocations = __webpack_require__(55);
 var ReactPropTypeLocationNames = __webpack_require__(56);
-var ReactCurrentOwner = __webpack_require__(23);
+var ReactCurrentOwner = __webpack_require__(24);
 
 var canDefineProperty = __webpack_require__(53);
 var getIteratorFn = __webpack_require__(81);
@@ -34554,7 +34601,7 @@ var router_1 = __webpack_require__(358);
 var AuthBox_1 = __webpack_require__(433);
 var TimeZone_1 = __webpack_require__(434);
 var MainMenu_1 = __webpack_require__(436);
-var GlobalMessage_1 = __webpack_require__(441);
+var GlobalMessage_1 = __webpack_require__(443);
 var UserInfo_1 = __webpack_require__(20);
 var LocaleStore_1 = __webpack_require__(12);
 var LocalizationStore_1 = __webpack_require__(37);
@@ -34563,7 +34610,7 @@ var UserStore_1 = __webpack_require__(39);
 var BannerTypeStore_1 = __webpack_require__(63);
 var SitePartStore_1 = __webpack_require__(65);
 var BannerSizeStore_1 = __webpack_require__(152);
-var ProductStore_1 = __webpack_require__(36);
+var ProductStore_1 = __webpack_require__(33);
 var App = /** @class */ (function () {
     function App() {
     }
@@ -35102,7 +35149,7 @@ module.exports = quoteAttributeValueForBrowser;
 
 
 
-var EventConstants = __webpack_require__(24);
+var EventConstants = __webpack_require__(25);
 var ReactErrorUtils = __webpack_require__(110);
 
 var invariant = __webpack_require__(7);
@@ -35624,7 +35671,7 @@ module.exports = isNode;
 
 
 var ReactComponentEnvironment = __webpack_require__(74);
-var ReactCurrentOwner = __webpack_require__(23);
+var ReactCurrentOwner = __webpack_require__(24);
 var ReactElement = __webpack_require__(17);
 var ReactInstanceMap = __webpack_require__(41);
 var ReactPerf = __webpack_require__(18);
@@ -36272,7 +36319,7 @@ module.exports = ReactCompositeComponent;
 
 
 
-var EventConstants = __webpack_require__(24);
+var EventConstants = __webpack_require__(25);
 var EventPropagators = __webpack_require__(43);
 var ExecutionEnvironment = __webpack_require__(15);
 var FallbackCompositionState = __webpack_require__(305);
@@ -36870,7 +36917,7 @@ module.exports = SyntheticInputEvent;
 
 
 
-var EventConstants = __webpack_require__(24);
+var EventConstants = __webpack_require__(25);
 var EventPluginHub = __webpack_require__(40);
 var EventPropagators = __webpack_require__(43);
 var ExecutionEnvironment = __webpack_require__(15);
@@ -37260,7 +37307,7 @@ module.exports = DefaultEventPluginOrder;
 
 
 
-var EventConstants = __webpack_require__(24);
+var EventConstants = __webpack_require__(25);
 var EventPropagators = __webpack_require__(43);
 var SyntheticMouseEvent = __webpack_require__(57);
 
@@ -37389,7 +37436,7 @@ module.exports = EnterLeaveEventPlugin;
 
 
 
-var DOMProperty = __webpack_require__(32);
+var DOMProperty = __webpack_require__(34);
 var ExecutionEnvironment = __webpack_require__(15);
 
 var MUST_USE_ATTRIBUTE = DOMProperty.injection.MUST_USE_ATTRIBUTE;
@@ -37672,9 +37719,9 @@ module.exports = ReactBrowserComponentMixin;
 
 var AutoFocusUtils = __webpack_require__(315);
 var CSSPropertyOperations = __webpack_require__(316);
-var DOMProperty = __webpack_require__(32);
+var DOMProperty = __webpack_require__(34);
 var DOMPropertyOperations = __webpack_require__(67);
-var EventConstants = __webpack_require__(24);
+var EventConstants = __webpack_require__(25);
 var ReactBrowserEventEmitter = __webpack_require__(52);
 var ReactComponentBrowserEnvironment = __webpack_require__(68);
 var ReactDOMButton = __webpack_require__(323);
@@ -39428,7 +39475,7 @@ module.exports = ReactDOMTextarea;
 var ReactComponentEnvironment = __webpack_require__(74);
 var ReactMultiChildUpdateTypes = __webpack_require__(108);
 
-var ReactCurrentOwner = __webpack_require__(23);
+var ReactCurrentOwner = __webpack_require__(24);
 var ReactReconciler = __webpack_require__(28);
 var ReactChildReconciler = __webpack_require__(328);
 
@@ -40089,7 +40136,7 @@ module.exports = flattenChildren;
 var EventListener = __webpack_require__(131);
 var ExecutionEnvironment = __webpack_require__(15);
 var PooledClass = __webpack_require__(26);
-var ReactInstanceHandles = __webpack_require__(33);
+var ReactInstanceHandles = __webpack_require__(35);
 var ReactMount = __webpack_require__(16);
 var ReactUpdates = __webpack_require__(19);
 
@@ -40346,7 +40393,7 @@ module.exports = getUnboundedScrollPosition;
 
 
 
-var DOMProperty = __webpack_require__(32);
+var DOMProperty = __webpack_require__(34);
 var EventPluginHub = __webpack_require__(40);
 var ReactComponentEnvironment = __webpack_require__(74);
 var ReactClass = __webpack_require__(132);
@@ -40844,7 +40891,7 @@ module.exports = getNodeForCharacterOffset;
 
 
 
-var EventConstants = __webpack_require__(24);
+var EventConstants = __webpack_require__(25);
 var EventPropagators = __webpack_require__(43);
 var ExecutionEnvironment = __webpack_require__(15);
 var ReactInputSelection = __webpack_require__(135);
@@ -41086,7 +41133,7 @@ module.exports = ServerReactRootIndex;
 
 
 
-var EventConstants = __webpack_require__(24);
+var EventConstants = __webpack_require__(25);
 var EventListener = __webpack_require__(131);
 var EventPropagators = __webpack_require__(43);
 var ReactMount = __webpack_require__(16);
@@ -42123,7 +42170,7 @@ module.exports = SyntheticWheelEvent;
 
 
 
-var DOMProperty = __webpack_require__(32);
+var DOMProperty = __webpack_require__(34);
 
 var MUST_USE_ATTRIBUTE = DOMProperty.injection.MUST_USE_ATTRIBUTE;
 
@@ -42312,7 +42359,7 @@ module.exports = ReactDOMServer;
 
 var ReactDefaultBatchingStrategy = __webpack_require__(124);
 var ReactElement = __webpack_require__(17);
-var ReactInstanceHandles = __webpack_require__(33);
+var ReactInstanceHandles = __webpack_require__(35);
 var ReactMarkupChecksum = __webpack_require__(117);
 var ReactServerBatchingStrategy = __webpack_require__(350);
 var ReactServerRenderingTransaction = __webpack_require__(351);
@@ -42947,9 +42994,9 @@ var React = __webpack_require__(1);
 var ReactDOM = __webpack_require__(30);
 var $ = __webpack_require__(8);
 var Backbone = __webpack_require__(2);
-var ROLE_1 = __webpack_require__(34);
+var ROLE_1 = __webpack_require__(36);
 var BannerStore_1 = __webpack_require__(139);
-var CaseStore_1 = __webpack_require__(35);
+var CaseStore_1 = __webpack_require__(32);
 var LocalizationStore_1 = __webpack_require__(37);
 var RoleStore_1 = __webpack_require__(87);
 var MailTypeStore_1 = __webpack_require__(88);
@@ -45043,7 +45090,7 @@ var ResultModel_1 = __webpack_require__(11);
 var LocaleStore_1 = __webpack_require__(12);
 var ClientStore_1 = __webpack_require__(22);
 var SitePartStore_1 = __webpack_require__(65);
-var ProductStore_1 = __webpack_require__(36);
+var ProductStore_1 = __webpack_require__(33);
 function getCountryCodes() {
     var result = ['US', 'RU', 'BY'];
     _.each(LocaleStore_1.default.getLocales(), function (localeModel) {
@@ -45392,12 +45439,12 @@ var CaseForm_1 = __webpack_require__(392);
 var CaseItem_1 = __webpack_require__(393);
 var ReactComponent_1 = __webpack_require__(3);
 var EVENTS_1 = __webpack_require__(5);
-var ROLE_1 = __webpack_require__(34);
+var ROLE_1 = __webpack_require__(36);
 var TimeZoneStore_1 = __webpack_require__(279);
-var CaseStore_1 = __webpack_require__(35);
+var CaseStore_1 = __webpack_require__(32);
 var CaseModel_1 = __webpack_require__(85);
 var UserInfo_1 = __webpack_require__(20);
-var CaseActions_1 = __webpack_require__(25);
+var CaseActions_1 = __webpack_require__(23);
 function getClonedCases() {
     var cases = [];
     _.each(CaseStore_1.default.getCases(), function (model) {
@@ -45719,7 +45766,7 @@ var ReactComponent_1 = __webpack_require__(3);
 var URL_1 = __webpack_require__(6);
 var ResultModel_1 = __webpack_require__(11);
 var GlobalMessageActions_1 = __webpack_require__(13);
-var CaseActions_1 = __webpack_require__(25);
+var CaseActions_1 = __webpack_require__(23);
 var CaseResizeForm = /** @class */ (function (_super) {
     __extends(CaseResizeForm, _super);
     function CaseResizeForm() {
@@ -45809,10 +45856,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
 var $ = __webpack_require__(8);
 var ReactComponent_1 = __webpack_require__(3);
-var CaseStore_1 = __webpack_require__(35);
+var CaseStore_1 = __webpack_require__(32);
 var ResultModel_1 = __webpack_require__(11);
 var GlobalMessageActions_1 = __webpack_require__(13);
-var CaseActions_1 = __webpack_require__(25);
+var CaseActions_1 = __webpack_require__(23);
 var URL_1 = __webpack_require__(6);
 function getInitState() {
     return {
@@ -45935,7 +45982,7 @@ var CaseBanner_1 = __webpack_require__(397);
 var ReactComponent_1 = __webpack_require__(3);
 var DateHelper_1 = __webpack_require__(48);
 var CaseBannerModel_1 = __webpack_require__(141);
-var CaseActions_1 = __webpack_require__(25);
+var CaseActions_1 = __webpack_require__(23);
 var CaseItem = /** @class */ (function (_super) {
     __extends(CaseItem, _super);
     function CaseItem() {
@@ -46183,10 +46230,10 @@ var BannersDropdown_1 = __webpack_require__(155);
 var URL_1 = __webpack_require__(6);
 var EVENTS_1 = __webpack_require__(5);
 var ResultModel_1 = __webpack_require__(11);
-var CaseStore_1 = __webpack_require__(35);
+var CaseStore_1 = __webpack_require__(32);
 var ClientStore_1 = __webpack_require__(22);
 var GlobalMessageActions_1 = __webpack_require__(13);
-var CaseActions_1 = __webpack_require__(25);
+var CaseActions_1 = __webpack_require__(23);
 var DateHelper_1 = __webpack_require__(48);
 var BannerHelper_1 = __webpack_require__(64);
 function getInitState() {
@@ -46277,6 +46324,7 @@ var CaseBannerForm = /** @class */ (function (_super) {
             }
             formData['localeIds'] = CaseStore_1.default.getLocaleIds();
             formData['clientIds'] = CaseStore_1.default.getClientIds();
+            formData['productIds'] = CaseStore_1.default.getProductIds();
             // add or update url
             var self = _this;
             $.ajax({
@@ -46750,7 +46798,7 @@ var ReactComponent_1 = __webpack_require__(3);
 var BannerTypeModel_1 = __webpack_require__(45);
 var DateHelper_1 = __webpack_require__(48);
 var BannerHelper_1 = __webpack_require__(64);
-var CaseActions_1 = __webpack_require__(25);
+var CaseActions_1 = __webpack_require__(23);
 var ClientStore_1 = __webpack_require__(22);
 var CaseBanner = /** @class */ (function (_super) {
     __extends(CaseBanner, _super);
@@ -49608,7 +49656,7 @@ var _ = __webpack_require__(4);
 var $ = __webpack_require__(8);
 var URL_1 = __webpack_require__(6);
 var EVENTS_1 = __webpack_require__(5);
-var ROLE_1 = __webpack_require__(34);
+var ROLE_1 = __webpack_require__(36);
 var ReactComponent_1 = __webpack_require__(3);
 var GlobalMessageActions_1 = __webpack_require__(13);
 var UserActions_1 = __webpack_require__(285);
@@ -49619,7 +49667,7 @@ var UserStore_1 = __webpack_require__(39);
 var LocaleStore_1 = __webpack_require__(12);
 var RoleStore_1 = __webpack_require__(87);
 var MailTypeStore_1 = __webpack_require__(88);
-var ProductStore_1 = __webpack_require__(36);
+var ProductStore_1 = __webpack_require__(33);
 function getInitState() {
     return {
         localeModels: LocaleStore_1.default.getLocales(),
@@ -49897,7 +49945,7 @@ var React = __webpack_require__(1);
 var ReactComponent_1 = __webpack_require__(3);
 var EVENTS_1 = __webpack_require__(5);
 var URL_1 = __webpack_require__(6);
-var ROLE_1 = __webpack_require__(34);
+var ROLE_1 = __webpack_require__(36);
 var UserInfo_1 = __webpack_require__(20);
 var ClientStore_1 = __webpack_require__(22);
 var TotoDrawTypeStore_1 = __webpack_require__(46);
@@ -51175,16 +51223,17 @@ var _ = __webpack_require__(4);
 var ReactComponent_1 = __webpack_require__(3);
 var URL_1 = __webpack_require__(6);
 var EVENTS_1 = __webpack_require__(5);
-var ROLE_1 = __webpack_require__(34);
-var CaseStore_1 = __webpack_require__(35);
+var ROLE_1 = __webpack_require__(36);
+var CaseStore_1 = __webpack_require__(32);
 var LocalizationStore_1 = __webpack_require__(37);
 var ClientStore_1 = __webpack_require__(22);
 var SitePartStore_1 = __webpack_require__(65);
-var ProductStore_1 = __webpack_require__(36);
+var ProductStore_1 = __webpack_require__(33);
 var UserInfo_1 = __webpack_require__(20);
-var CaseActions_1 = __webpack_require__(25);
+var CaseActions_1 = __webpack_require__(23);
 var LocaleMenu_1 = __webpack_require__(437);
 var LocalizationLocaleMenu_1 = __webpack_require__(439);
+var CaseProductMenu_1 = __webpack_require__(441);
 var UrlKey = /** @class */ (function () {
     function UrlKey() {
     }
@@ -51299,26 +51348,8 @@ var MainMenu = /** @class */ (function (_super) {
         switch (urlKey) {
             case UrlKey.CASE:
                 var products = this.state.products || [], caseProductId = this.state.caseProductId, caseSitePartId = this.state.caseSitePartId, productItems = [];
-                products = _.sortBy(products, function (productModel) {
-                    return productModel.getId();
-                });
-                _.each(products, function (productModel) {
-                    var productId = productModel.getId(), productIdString = productId.toString(), productName = productModel.getName(), productChecked = caseProductId == productId, className = productChecked ? 'active' : '', checkBoxComponent = React.createElement('input', {
-                        type: 'checkbox',
-                        onChange: self.onProductIdClick.bind(self, productId),
-                        title: 'apply operation to this product',
-                        checked: productChecked,
-                        disabled: productChecked
-                    });
-                    productItems.push(React.createElement("div", { className: "panel-item", key: productIdString },
-                        React.createElement("div", { className: "" },
-                            React.createElement("a", { className: className, title: productName, onClick: self.onProductIdClick.bind(null, productId) },
-                                React.createElement("span", null, productName)),
-                            checkBoxComponent)));
-                });
                 subItems.push(React.createElement("div", { className: "menu", key: "product-menu" },
-                    React.createElement("div", { className: "product-menu" },
-                        React.createElement("div", { className: "panel-items" }, productItems))));
+                    React.createElement(CaseProductMenu_1.default, { caseProductId: caseProductId })));
                 if (caseProductId != undefined && caseProductId > 0) {
                     var siteParts = this.state.siteParts, sitePartItems = [];
                     _.each(siteParts, function (sitePartModel) {
@@ -51410,6 +51441,9 @@ var MainMenu = /** @class */ (function (_super) {
         e.preventDefault();
         CaseActions_1.default.setProductId(productId);
     };
+    MainMenu.prototype.onProductCBClick = function (productId, e) {
+        e.preventDefault();
+    };
     return MainMenu;
 }(ReactComponent_1.default));
 exports.default = MainMenu;
@@ -51442,10 +51476,10 @@ var ReactComponent_1 = __webpack_require__(3);
 var URL_1 = __webpack_require__(6);
 var EVENTS_1 = __webpack_require__(5);
 var LocaleModel_1 = __webpack_require__(61);
-var CaseStore_1 = __webpack_require__(35);
+var CaseStore_1 = __webpack_require__(32);
 var ClientStore_1 = __webpack_require__(22);
 var LocaleMenuItem_1 = __webpack_require__(438);
-var CaseActions_1 = __webpack_require__(25);
+var CaseActions_1 = __webpack_require__(23);
 function initState() {
     return {
         activeLocaleId: CaseStore_1.default.getLocaleId()
@@ -51586,7 +51620,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
 var ReactComponent_1 = __webpack_require__(3);
-var CaseActions_1 = __webpack_require__(25);
+var CaseActions_1 = __webpack_require__(23);
 var LocaleMenuItem = /** @class */ (function (_super) {
     __extends(LocaleMenuItem, _super);
     function LocaleMenuItem() {
@@ -51872,9 +51906,153 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
 var _ = __webpack_require__(4);
-var GlobalMessageStore_1 = __webpack_require__(442);
 var ReactComponent_1 = __webpack_require__(3);
-var GlobalMessageItem_1 = __webpack_require__(443);
+var CaseStore_1 = __webpack_require__(32);
+var ProductStore_1 = __webpack_require__(33);
+var EVENTS_1 = __webpack_require__(5);
+var CaseActions_1 = __webpack_require__(23);
+var CaseProductMenuItem_1 = __webpack_require__(442);
+function getInitState() {
+    var products = [];
+    _.each(ProductStore_1.default.getProducts(), function (productModel) {
+        products.push(productModel);
+    });
+    return {
+        products: products,
+    };
+}
+var CaseProductMenu = /** @class */ (function (_super) {
+    __extends(CaseProductMenu, _super);
+    function CaseProductMenu() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.componentDidMount = function () {
+            CaseStore_1.default.on(EVENTS_1.default.CHANGE, _this.onChange);
+        };
+        _this.componentWillUnmount = function () {
+            CaseStore_1.default.off(EVENTS_1.default.CHANGE, _this.onChange);
+        };
+        _this.onChange = function () {
+            _this.setState(getInitState());
+        };
+        _this.onProductCBSelect = function (productId) {
+            var selected = _this.isCheckboxSelected(productId);
+            if (selected) {
+                CaseActions_1.default.productIdsRemove(productId);
+            }
+            else {
+                CaseActions_1.default.productIdsAdd(productId);
+            }
+            _this.setState(getInitState());
+        };
+        _this.onProductIdClick = function (productId) {
+            CaseActions_1.default.setProductId(productId);
+        };
+        _this.isCheckboxSelected = function (id) {
+            return CaseStore_1.default.hasProductId(id);
+        };
+        return _this;
+    }
+    CaseProductMenu.prototype.getState = function () {
+        return getInitState();
+    };
+    CaseProductMenu.prototype.render = function () {
+        var self = this, products = this.state.products, productItems = [];
+        _.each(products, function (productModel) {
+            var productId = productModel.getId(), caseProductId = self.props.caseProductId;
+            productItems.push(React.createElement(CaseProductMenuItem_1.default, {
+                productId: productId,
+                productName: productModel.getName(),
+                selected: caseProductId == productId,
+                checked: self.isCheckboxSelected(productId),
+                onProductIdClick: self.onProductIdClick,
+                onProductCBSelect: self.onProductCBSelect
+            }));
+        });
+        return (React.createElement("div", { className: "product-menu" },
+            React.createElement("div", { className: "panel-items" }, productItems)));
+    };
+    return CaseProductMenu;
+}(ReactComponent_1.default));
+exports.default = CaseProductMenu;
+
+
+/***/ }),
+/* 442 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(1);
+var ReactComponent_1 = __webpack_require__(3);
+var CaseProductMenuItem = /** @class */ (function (_super) {
+    __extends(CaseProductMenuItem, _super);
+    function CaseProductMenuItem() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.onProductIdClick = function () {
+            _this.props.onProductIdClick(_this.props.productId);
+        };
+        _this.onProductCBSelect = function () {
+            _this.props.onProductCBSelect(_this.props.productId);
+        };
+        return _this;
+    }
+    CaseProductMenuItem.prototype.render = function () {
+        var productId = this.props.productId, selected = this.props.selected, productName = this.props.productName, productChecked = this.props.checked, productIdString = productId.toString(), className = selected ? 'active' : '', checkBoxComponent = React.createElement('input', {
+            type: 'checkbox',
+            onChange: this.onProductCBSelect.bind(self, productId),
+            title: 'copy new banner to this product',
+            checked: productChecked,
+        });
+        return (React.createElement("div", { className: "panel-item", key: productIdString },
+            React.createElement("div", { className: "" },
+                React.createElement("a", { className: className, title: productName, onClick: this.onProductIdClick.bind(null, productId) },
+                    React.createElement("span", null, productName)),
+                checkBoxComponent)));
+    };
+    return CaseProductMenuItem;
+}(ReactComponent_1.default));
+exports.default = CaseProductMenuItem;
+
+
+/***/ }),
+/* 443 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(1);
+var _ = __webpack_require__(4);
+var GlobalMessageStore_1 = __webpack_require__(444);
+var ReactComponent_1 = __webpack_require__(3);
+var GlobalMessageItem_1 = __webpack_require__(445);
 var EVENTS_1 = __webpack_require__(5);
 var GlobalMessageActions_1 = __webpack_require__(13);
 function getCurrentState() {
@@ -51926,7 +52104,7 @@ exports.default = GlobalMessage;
 
 
 /***/ }),
-/* 442 */
+/* 444 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51999,7 +52177,7 @@ AppDispatcher_1.default.on('all', function (eventName, payload) {
 
 
 /***/ }),
-/* 443 */
+/* 445 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
