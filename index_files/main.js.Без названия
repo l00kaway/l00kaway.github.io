@@ -9341,6 +9341,9 @@ var BannerModel = /** @class */ (function (_super) {
         _this.getResolvedTreeIdIt = function () {
             return _this.get('resolvedTreeIdIt');
         };
+        _this.getResolvedTreeIdDk = function () {
+            return _this.get('resolvedTreeIdDk');
+        };
         _this.getGameIForiumTitle = function () {
             return _this.get('gameIForiumTitle');
         };
@@ -9423,6 +9426,7 @@ var BannerModel = /** @class */ (function (_super) {
             resolvedTreeIdGgs: '',
             resolvedTreeIdEs: '',
             resolvedTreeIdIt: '',
+            resolvedTreeIdDk: '',
             gameIForiumTitle: '',
             gameIForiumTitleKey: '',
             gameIForiumProvider: '',
@@ -9468,6 +9472,7 @@ var BannerModel = /** @class */ (function (_super) {
             resolvedTreeIdGgs: 'Resolved Tree ID GGS',
             resolvedTreeIdEs: 'Resolved Tree ID ES',
             resolvedTreeIdIt: 'Resolved Tree ID IT',
+            resolvedTreeIdDk: 'Resolved Tree ID DK',
             gameIForiumTitle: 'Game IForium Title',
             gameIForiumTitleKey: 'Game IForium Title Key',
             gameIForiumProvider: 'Game IForium Provider',
@@ -15392,11 +15397,15 @@ var ClientModel = /** @class */ (function (_super) {
     ClientModel.prototype.isGGS = function () {
         return this.getJurisdiction() == ClientModel.JURISDICTION_COUK;
     };
+    ClientModel.prototype.isDenmark = function () {
+        return this.getJurisdiction() == ClientModel.JURISDICTION_DENMARK;
+    };
     ClientModel.JURISDICTION_COM = 'CURACAO';
     ClientModel.JURISDICTION_BY = 'BELARUS';
     ClientModel.JURISDICTION_COUK = 'ALDERNEY';
     ClientModel.JURISDICTION_SPAIN = 'SPAIN';
     ClientModel.JURISDICTION_ITALY = 'ITALY';
+    ClientModel.JURISDICTION_DENMARK = 'DENMARK';
     return ClientModel;
 }(Backbone.Model));
 exports.default = ClientModel;
@@ -43997,6 +44006,10 @@ var BannersListPage = /** @class */ (function (_super) {
                     BannersActions_1.default.setAction(params);
                     break;
                 }
+                case Filters.SIZE_ID_SELECT: {
+                    BannersActions_1.default.setSizeId(e.target.value);
+                    break;
+                }
                 case Filters.DESCRIPTION_INPUT: {
                     BannersActions_1.default.setDescription(params);
                     break;
@@ -44769,7 +44782,10 @@ var BannerForm = /** @class */ (function (_super) {
                         React.createElement("input", { type: "text", name: "resolvedTreeIdEs", className: "form-control", disabled: true, value: bannerModel.getResolvedTreeIdEs(), onChange: this.elementModelOnChange })),
                     React.createElement("div", { className: "form-group" },
                         React.createElement("div", null, "Resolved Tree ID IT:"),
-                        React.createElement("input", { type: "text", name: "resolvedTreeIdIt", className: "form-control", disabled: true, value: bannerModel.getResolvedTreeIdIt(), onChange: this.elementModelOnChange }))));
+                        React.createElement("input", { type: "text", name: "resolvedTreeIdIt", className: "form-control", disabled: true, value: bannerModel.getResolvedTreeIdIt(), onChange: this.elementModelOnChange })),
+                    React.createElement("div", { className: "form-group" },
+                        React.createElement("div", null, "Resolved Tree ID DK:"),
+                        React.createElement("input", { type: "text", name: "resolvedTreeIdDk", className: "form-control", disabled: true, value: bannerModel.getResolvedTreeIdDk(), onChange: this.elementModelOnChange }))));
                 break;
             case BannerTypeModel_1.default.HELP:
                 bannerTypeComponents.push(React.createElement("div", { className: "form-group required" },
@@ -46851,6 +46867,9 @@ var CaseBanner = /** @class */ (function (_super) {
                     else if (clientModel.isItaly()) {
                         result += bannerModel.getResolvedTreeIdIt();
                     }
+                    else if (clientModel.isDenmark()) {
+                        result += bannerModel.getResolvedTreeIdDk();
+                    }
                     else {
                         result += bannerModel.getResolvedTreeIdMhd();
                     }
@@ -47910,6 +47929,11 @@ var LocalizationTranslationForm = /** @class */ (function (_super) {
             }
             return result;
         };
+        _this.checkEnterInInput = function (e) {
+            if (e.keyCode == '13') {
+                e.preventDefault();
+            }
+        };
         return _this;
     }
     LocalizationTranslationForm.prototype.getState = function () {
@@ -47926,7 +47950,7 @@ var LocalizationTranslationForm = /** @class */ (function (_super) {
             var value = translations[i];
             var nameValue = "" + i;
             translationComponent.push(React.createElement("div", { key: i },
-                React.createElement("input", { value: value, onChange: this.onChange, name: nameValue, className: "pure-u-1", autoComplete: "off" })));
+                React.createElement("input", { value: value, onChange: this.onChange, onKeyDown: this.checkEnterInInput, name: nameValue, className: "pure-u-1", autoComplete: "off" })));
         }
         return (React.createElement("div", { className: "pure-u-2-5 localization-form localization-translation-form" },
             React.createElement("hr", null),
