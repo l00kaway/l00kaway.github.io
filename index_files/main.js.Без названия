@@ -45383,7 +45383,7 @@ var BannersBanners = /** @class */ (function (_super) {
     BannersBanners.BANNER_TYPE_TOTO_LINK = 'TOTO_LINK';
     BannersBanners.BANNER_TYPE_HELP = 'HELP';
     BannersBanners.BANNER_TYPE_HTML = 'HTML';
-    BannersBanners.BANNER_TYPE_EVENT_URL = '/events.htm?id=';
+    BannersBanners.BANNER_TYPE_EVENT_URL = '/events.htm?treeIds=';
     BannersBanners.BANNER_TYPE_TOTO_URL = '/toto/redirectbydrawtype.htm?drawType=';
     return BannersBanners;
 }(ReactComponent_1.default));
