@@ -44282,9 +44282,7 @@ var BannersTable = /** @class */ (function (_super) {
         var thElems = [];
         var banners = this.props.banners || [];
         var onLocalize = this.props.onLocalize;
-        var userInfo = UserInfo_1.default.getInstance();
-        var userCanDelete = userInfo.isAdmin();
-        var userCanUpdate = userInfo.isAdmin() || userInfo.isContentManager();
+        var userInfo = UserInfo_1.default.getInstance(), userCanDelete = userInfo.isAdmin() || userInfo.isContentManager(), userCanUpdate = userInfo.isAdmin() || userInfo.isContentManager();
         var userCanLocalize = userInfo.isAdmin() || userInfo.isContentManager();
         if (!_.isEmpty(banners)) {
             _.each(banners, function (bannerItem) {
@@ -45708,8 +45706,7 @@ var CaseTable = /** @class */ (function (_super) {
                     React.createElement("i", { className: "fa fa-check-square-o" }),
                     sortSaveTitle));
             }
-            if (UserInfo_1.default.getInstance().hasRole(ROLE_1.default.CASE_RESIZE) ||
-                UserInfo_1.default.getInstance().hasRole(ROLE_1.default.CONTENT_MANAGER)) {
+            if (UserInfo_1.default.getInstance().hasRole(ROLE_1.default.CASE_RESIZE)) {
                 resize = (React.createElement("button", { onClick: this.caseResizeFormOnClick, className: "button-small pure-button button-error" },
                     React.createElement("i", { className: "fa fa-arrows-h" }),
                     "Resize client cases"));
