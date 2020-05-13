@@ -16558,6 +16558,7 @@ var LocalizationActionModel = /** @class */ (function (_super) {
     LocalizationActionModel.NEED_LOCALIZE = 'NEED_LOCALIZE';
     LocalizationActionModel.TEXT_SAVE = 'TEXT_SAVE';
     LocalizationActionModel.TEXT_REJECT = 'TEXT_REJECT';
+    LocalizationActionModel.TEXT_CHECK_APPROVE = 'TEXT_CHECK_APPROVE';
     LocalizationActionModel.BANNER_SAVE = 'BANNER_SAVE';
     LocalizationActionModel.BANNER_REJECT = 'BANNER_REJECT';
     LocalizationActionModel.BANNER_CHECK_APPROVE = 'BANNER_CHECK_APPROVE';
@@ -16604,7 +16605,7 @@ var LocalizationStateModel = /** @class */ (function (_super) {
     LocalizationStateModel.NEW = 'NEW';
     LocalizationStateModel.TEXT = 'TEXT';
     LocalizationStateModel.BANNER = 'BANNER';
-    LocalizationStateModel.BANNER_REJECT = 'BANNER_REJECT';
+    LocalizationStateModel.TEXT_CHECK = 'TEXT_CHECK';
     LocalizationStateModel.BANNER_CHECK = 'BANNER_CHECK';
     LocalizationStateModel.APPROVED = 'APPROVED';
     LocalizationStateModel.MOVED_TO_CART = 'MOVED_TO_CART';
@@ -34408,8 +34409,12 @@ function getData() {
             title: "Translated banner has been rejected"
         }),
         new LocalizerStateModel_1.default({
+            id: LocalizerStateModel_1.default.TEXT_CHECK_APPROVE,
+            title: "Translated text has been checked and approved"
+        }),
+        new LocalizerStateModel_1.default({
             id: LocalizerStateModel_1.default.BANNER_CHECK_APPROVE,
-            title: "Translated text and banner has been checked and approved"
+            title: "Banner has been checked and approved"
         }),
         new LocalizerStateModel_1.default({
             id: LocalizerStateModel_1.default.DELETE,
@@ -34484,6 +34489,7 @@ var LocalizerStateModel = /** @class */ (function (_super) {
     LocalizerStateModel.TEXT_REJECT = 'TEXT_REJECT';
     LocalizerStateModel.BANNER_REJECT = 'BANNER_REJECT';
     LocalizerStateModel.BANNER_CHECK_APPROVE = 'BANNER_CHECK_APPROVE';
+    LocalizerStateModel.TEXT_CHECK_APPROVE = 'TEXT_CHECK_APPROVE';
     LocalizerStateModel.DELETE = 'DELETE';
     LocalizerStateModel.DELETE_ROW = 'DELETE_ROW';
     LocalizerStateModel.MOVE_TO_CART = 'MOVE_TO_CART';
@@ -48405,7 +48411,7 @@ var LocalizationItem = /** @class */ (function (_super) {
         _.each(localizationModel.getItems(), function (itemWrapperModel) {
             if (itemWrapperModel) {
                 var itemModel = itemWrapperModel.getItem();
-                if ([LocalizationStateModel_1.default.BANNER_REJECT, LocalizationStateModel_1.default.BANNER].indexOf(itemModel.getState()) > -1) {
+                if (LocalizationStateModel_1.default.BANNER == itemModel.getState()) {
                     rejectedBanners.push(new UploadRejectBannerHelpModel_1.default()
                         .setItemModel(itemModel.getId())
                         .setLocale(LocaleStore_1.default.getById(itemModel.getLocaleId())));
@@ -48569,6 +48575,12 @@ function getData() {
             iconClassName: 'fa-check-square-o'
         },
         {
+            id: LocalizationActionModel_1.default.TEXT_CHECK_APPROVE,
+            title: 'Text approve',
+            className: 'button-success',
+            iconClassName: 'fa-check-square-o'
+        },
+        {
             id: LocalizationActionModel_1.default.BANNER_SAVE,
             title: 'Banner',
             description: 'Edit banner <%= locale %>',
@@ -48582,7 +48594,7 @@ function getData() {
         },
         {
             id: LocalizationActionModel_1.default.BANNER_CHECK_APPROVE,
-            title: 'Approve',
+            title: 'Banner approve',
             className: 'button-success',
             iconClassName: 'fa-check-square-o'
         },
@@ -48705,16 +48717,12 @@ function getData() {
             title: LocalizationStateModel_1.default.BANNER
         },
         {
-            id: LocalizationStateModel_1.default.BANNER_REJECT,
-            title: LocalizationStateModel_1.default.BANNER_REJECT
-        },
-        {
             id: LocalizationStateModel_1.default.BANNER_CHECK,
             title: LocalizationStateModel_1.default.BANNER_CHECK
         },
         {
-            id: LocalizationStateModel_1.default.BANNER_REJECT,
-            title: LocalizationStateModel_1.default.BANNER_REJECT
+            id: LocalizationStateModel_1.default.TEXT_CHECK,
+            title: LocalizationStateModel_1.default.TEXT_CHECK
         },
         {
             id: LocalizationStateModel_1.default.APPROVED,
